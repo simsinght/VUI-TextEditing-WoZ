@@ -1,4 +1,11 @@
-const interface1 = {id: 1, name: '1'};
-const interface2 = {id: 2, name: '2'};
+const modes = require('./modes');
+const { mDictateIntegrated, mDictateClutched, mDictateGD, 
+    mEditClutched, mInsert, mChange, mReplace, 
+    mDelete, mUndoClutched, mUndoIntegrated } = modes;
 
-module.exports = [interface1, interface2];
+const clutch = {id: 0, name: 'clutch', modes:[mDictateClutched, mEditClutched, mInsert, mChange, mReplace, mDelete, mUndoClutched]};
+const integrated = {id: 1, name: 'integrated', modes:[mDictateClutched, mInsert, mChange, mReplace, mDelete, mUndoIntegrated]};
+const docs = {id: 2, name: 'docs', modes:[mDictateGD]};
+const dragon = {id: 3, name: 'dragon', modes:[]};
+
+module.exports = [clutch, integrated, docs, dragon];

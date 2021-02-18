@@ -2,6 +2,8 @@ prompts = document.getElementById("prompts");
 interfaces = document.getElementById("interfaces");
 modes = document.getElementById("modes");
 
+promptVis = document.getElementById("prompt-vis");
+
 currentPrompt = null;
 currentInterface = null;
 currentMode = null;
@@ -49,12 +51,16 @@ function selectPrompt(newPrompt) {
     currentPrompt.removeAttribute('selected');
     currentPrompt = document.getElementById('prompt-'+newPrompt.name);
     currentPrompt.setAttribute('selected', true);
+
+    promptVis.innerText = newPrompt.task;
 }
 
-function selectInterface(newInterface) {
+function selectInterface(newInterface, onModeClick) {
     currentInterface.removeAttribute('selected');
     currentInterface = document.getElementById('interface-'+newInterface.name);
     currentInterface.setAttribute('selected', true);
+
+    setModes(newInterface.modes, onModeClick);
 }
 
 function selectMode(newMode) {
@@ -68,6 +74,8 @@ window.onload = () => {
     prompts = document.getElementById("prompts");
     interfaces = document.getElementById("interfaces");
     modes = document.getElementById("modes");
+
+    promptVis = document.getElementById("prompt-vis");
 
     currentPrompt = prompts;
     currentInterface = interfaces;

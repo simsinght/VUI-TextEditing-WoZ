@@ -10,3 +10,7 @@
 .sj-cardholder > .card[selected] {
     background-color: red;
 }
+
+.prompt-vis-container > .card {
+    width: 18rem;
+}
