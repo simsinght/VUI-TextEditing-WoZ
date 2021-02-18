@@ -52,8 +52,8 @@ const mInsert = {
     micColor: 'yellow', 
     color: 'yellow', 
     topActions: [aInsertY], 
-    altActions: [aDeleteY, ], 
-    bottomActions: [], 
+    altActions: [aDeleteY, aReplaceY, aChangeY], 
+    bottomActions: [aCancelG, aAcceptGr], 
     secondField: true,
     transitions: ["at", "before", "after"] };
 
@@ -63,9 +63,9 @@ const mReplace = {
     type: 'cmd', 
     micColor: 'yellow', 
     color: 'yellow', 
-    topActions: [], 
-    altActions: [], 
-    bottomActions: [], 
+    topActions: [aReplaceY], 
+    altActions: [aInsertY, aDeleteY, aChangeY], 
+    bottomActions: [aCancelG, aAcceptGr], 
     secondField: true,
     transitions: ["with"] };
 
@@ -75,46 +75,44 @@ const mChange = {
     type: 'cmd', 
     micColor: 'yellow', 
     color: 'yellow', 
-    topActions: [], 
-    altActions: [], 
-    bottomActions: [], 
+    topActions: [aChangeY], 
+    altActions: [aInsertY, aDeleteY, aReplaceY],
+    bottomActions: [aCancelG, aAcceptGr],
     secondField: true,
     transitions: ["to"] };
 
 const mDelete = {
     id: 5, 
-    name: 'Change', 
+    name: 'Delete', 
     type: 'cmd', 
     micColor: 'yellow', 
     color: 'yellow', 
-    topActions: [], 
-    altActions: [], 
-    bottomActions: [], 
+    topActions: [aDeleteY], 
+    altActions: [aInsertY, aChangeY, aReplaceY], 
+    bottomActions: [aCancelG, aAcceptGr],
     secondField: false,
     transitions: [] };
 
 const mUndoIntegrated = {
     id: 6, 
     name: 'Undo', 
-    type: 'cmd', 
+    type: 'passive', 
     micColor: 'yellow', 
     color: 'yellow', 
-    topActions: [], 
+    topActions: [aUndoY], 
     altActions: [], 
-    bottomActions: [], 
-    secondField: false,
-    transitions: [] };
+    bottomActions: [aCancelG, aSendGr], 
+    cmdAcceptedField: false };
 
 const mUndoClutched = {
     id: 7, 
     name: 'Undo', 
-    type: 'cmd', 
+    type: 'passive', 
     micColor: 'blue', 
-    color: 'yellow', 
-    topActions: [], 
+    color: 'blue', 
+    topActions: [aUndoY], 
     altActions: [], 
-    bottomActions: [], 
-    secondField: false,
-    transitions: [] };
+    bottomActions: [aResumeG, aSendGr], 
+    cmdAcceptedField: false };
 
 module.exports = {mDictateIntegrated, mDictateClutched, mDictateGD, mEditClutched, mInsert, mChange, mReplace, mDelete, mUndoClutched, mUndoIntegrated};
