@@ -1,0 +1,12 @@
+
+.sj-cardholder {
+    display: flex;
+}
+
+.sj-cardholder > .card {
+    margin-left: 10px;
+}
+
+.sj-cardholder > .card[selected] {
+    background-color: red;
+}
