@@ -2,6 +2,8 @@ prompts = document.getElementById("prompts");
 interfaces = document.getElementById("interfaces");
 modes = document.getElementById("modes");
 transitions = document.getElementById("transitions");
+field1 = document.getElementById("field1-container");
+field2 = document.getElementById("field2-container");
 
 promptVis = document.getElementById("prompt-vis");
 
@@ -76,8 +78,17 @@ function selectMode(newMode, onTransitionClick) {
 
     if(newMode.type === "cmd"){
         setTransitions(newMode.transitions, onTransitionClick)
+        field1.removeAttribute('hidden');
+        if (newMode.secondField){
+            field2.removeAttribute('hidden');
+        } else {
+            field2.setAttribute('hidden', true);
+        }
     } else {
-        setTransitions([], null)
+        setTransitions([], null);
+        currentTransition = null;
+        field1.setAttribute('hidden', true);
+        field2.setAttribute('hidden', true);
     }
 }
 
@@ -95,6 +106,8 @@ window.onload = () => {
     interfaces = document.getElementById("interfaces");
     modes = document.getElementById("modes");
     transitions = document.getElementById("transitions");
+    field1 = document.getElementById("field1-container");
+    field2 = document.getElementById("field2-container");
 
 
     promptVis = document.getElementById("prompt-vis");

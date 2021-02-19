@@ -11,6 +11,7 @@ const data = {
     currentPrompt: null,
     currentInterface: null,
     currentMode: null,
+    currentTransition: null,
 
     user: {
         input: "",
@@ -47,6 +48,7 @@ const socket = (app) => {
 
         socket.on('shift-mode', (mode) => {
             data.currentMode = mode;
+            data.currentTransition = null;
             io.emit('mode-selection', mode);
         });
 
