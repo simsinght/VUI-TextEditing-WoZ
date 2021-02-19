@@ -1,12 +1,14 @@
 prompts = document.getElementById("prompts");
 interfaces = document.getElementById("interfaces");
 modes = document.getElementById("modes");
+transitions = document.getElementById("transitions");
 
 promptVis = document.getElementById("prompt-vis");
 
 currentPrompt = null;
 currentInterface = null;
 currentMode = null;
+currentTransition = null;
 
 function newCard(type, title, onclick) {
     card = document.createElement('div');
@@ -47,6 +49,10 @@ function setModes(newModes, func) {
     setCards(modes, 'mode', newModes, func);
 }
 
+function setTransitions(newTransitions, func) {
+    setCards(transitions, 'transition', newTransitions, func);
+}
+
 function selectPrompt(newPrompt) {
     currentPrompt.removeAttribute('selected');
     currentPrompt = document.getElementById('prompt-'+newPrompt.name);
@@ -63,10 +69,24 @@ function selectInterface(newInterface, onModeClick) {
     setModes(newInterface.modes, onModeClick);
 }
 
-function selectMode(newMode) {
+function selectMode(newMode, onTransitionClick) {
     currentMode.removeAttribute('selected');
     currentMode = document.getElementById('mode-'+newMode.name);
     currentMode.setAttribute('selected', true);
+
+    if(newMode.type === "cmd"){
+        setTransitions(newMode.transitions, onTransitionClick)
+    } else {
+        setTransitions([], null)
+    }
+}
+
+function selectTransition(newTransition) {
+    if(currentTransition){
+        currentTransition.removeAttribute('selected');
+    }
+    currentTransition = document.getElementById('transition-'+newTransition.name);
+    currentTransition.setAttribute('selected', true);
 }
 
 
@@ -74,10 +94,13 @@ window.onload = () => {
     prompts = document.getElementById("prompts");
     interfaces = document.getElementById("interfaces");
     modes = document.getElementById("modes");
+    transitions = document.getElementById("transitions");
+
 
     promptVis = document.getElementById("prompt-vis");
 
     currentPrompt = prompts;
     currentInterface = interfaces;
     currentMode = modes;
+    currentTransition = transitions;
 }

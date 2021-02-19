@@ -55,7 +55,7 @@ const mInsert = {
     altActions: [aDeleteY, aReplaceY, aChangeY], 
     bottomActions: [aCancelG, aAcceptGr], 
     secondField: true,
-    transitions: ["at", "before", "after"] };
+    transitions: [{name: "at"}, {name: "before"}, {name: "after"}] };
 
 const mReplace = {
     id: 4, 
@@ -67,7 +67,7 @@ const mReplace = {
     altActions: [aInsertY, aDeleteY, aChangeY], 
     bottomActions: [aCancelG, aAcceptGr], 
     secondField: true,
-    transitions: ["with"] };
+    transitions: [{name: "with"}] };
 
 const mChange = {
     id: 5, 
@@ -79,7 +79,7 @@ const mChange = {
     altActions: [aInsertY, aDeleteY, aReplaceY],
     bottomActions: [aCancelG, aAcceptGr],
     secondField: true,
-    transitions: ["to"] };
+    transitions: [{name: "to"}] };
 
 const mDelete = {
     id: 5, 

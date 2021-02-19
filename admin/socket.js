@@ -8,6 +8,7 @@ socket.on('init', (data) => {
     setPrompts(data.prompts, (prompt) => chooseItem('prompt', prompt));
     setInterfaces(data.interfaces, (interface) => chooseItem('interface', interface));
     // setModes(data.interfaces.modes, (mode) => chooseItem('mode', mode));
+    // setTransitions(data.interfaces.modes.transition, (transition) => chooseItem('transition', transition));
 })
 
 socket.on('prompt-selection', (prompt) => {
@@ -20,5 +21,9 @@ socket.on('interface-selection', (interface) => {
 })
 
 socket.on('mode-selection', (mode) => {
-    selectMode(mode)
+    selectMode(mode, (transition) => chooseItem('transition', transition))
+})
+
+socket.on('transition-selection', (transition) => {
+    selectTransition(transition)
 })

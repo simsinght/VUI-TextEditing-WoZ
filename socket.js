@@ -30,6 +30,7 @@ const socket = (app) => {
             if (data.currentPrompt) socket.emit('prompt-selection', data.currentPrompt);
             if (data.currentInterface) socket.emit('interface-selection', data.currentInterface);
             if (data.currentMode) socket.emit('mode-selection', data.currentMode);
+            if (data.currentTransition) socket.emit('transition-selection', data.currentTransition);
         }
 
         socket.on('shift-prompt', (prompt) => {
@@ -47,6 +48,11 @@ const socket = (app) => {
         socket.on('shift-mode', (mode) => {
             data.currentMode = mode;
             io.emit('mode-selection', mode);
+        });
+
+        socket.on('shift-transition', (transition) => {
+            data.currentTransition = transition;
+            io.emit('transition-selection', transition);
         });
     });
 };
