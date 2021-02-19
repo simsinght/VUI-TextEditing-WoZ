@@ -14,3 +14,17 @@
 .prompt-vis-container > .card {
     width: 18rem;
 }
+#event-log-container{
+    display: flex;
+    align-items: stretch;
+    flex-direction: column;
+}
+
+#user-text {
+    width: 100%;
+}
+#event-log {
+    width: 100%;
+    border: 1px black solid;
+    flex-grow: 2;
+}

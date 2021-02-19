@@ -30,13 +30,27 @@
             </div>
             <br/>
             <div class="row">
-                <div class="col-4" id="mode-view"></div>
+                <div class="col-4" id="mode-view">
+                    <div class="row"><p class="col-3">field 1</p> <input type="text" class="col-7" id="field1"/></div>
+                    <div class="row" id="transitions"><p class="col-3">at</p><p class="col-3">before</p><p class="col-3">after</p></div>
+                    <div class="row"><p class="col-3">field 1</p> <input type="text" class="col-7" id="field1" /></div>
+                </div>
                 <div class="col-4" id="prompt-vis-container">
                     <div class="row"><h6>Prompt</h6></div>
                     <div class="card border-light">
                         <div class="card-body" id="prompt-vis">
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4" id="user-text-container">
+                    <h6>User Text Box</h6>
+                    <textarea id="user-text" rows="5"> </textarea>
+                </div>
+                <div class="col-4" id="event-log-container">
+                    <h6>User Events</h6>
+                    <div id="event-log">Did some stuff</div>
                 </div>
             </div>
         </div>
