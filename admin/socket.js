@@ -5,7 +5,7 @@ function chooseItem(type, choice) {
 }
 
 socket.on('init', (data) => {
-    setPrompts(data.prompts, (prompt) => chooseItem('prompt', prompt));
+    setPrompts(Object.values(data.prompts), (prompt) => chooseItem('prompt', prompt));
     setInterfaces(data.interfaces, (interface) => chooseItem('interface', interface));
     // setModes(data.interfaces.modes, (mode) => chooseItem('mode', mode));
     // setTransitions(data.interfaces.modes.transition, (transition) => chooseItem('transition', transition));

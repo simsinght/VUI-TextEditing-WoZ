@@ -35,3 +35,10 @@
 .mode-param{
     margin-bottom: 10px;
 }
+.overflow {
+    flex-wrap: wrap;
+    padding-bottom: 5px;;
+}
+.overflow > .card {
+    margin-bottom: 10px;
+}

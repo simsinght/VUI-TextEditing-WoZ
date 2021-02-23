@@ -1,6 +1,6 @@
 const socketio = require('socket.io');
 
-const prompts = require('./experiments/prompts');
+const prompts = require('./experiments/tasks');
 const interfaces = require('./experiments/interfaces');
 const modes = require('./experiments/modes');
 

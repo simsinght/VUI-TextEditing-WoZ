@@ -60,7 +60,7 @@ function selectPrompt(newPrompt) {
     currentPrompt = document.getElementById('prompt-'+newPrompt.name);
     currentPrompt.setAttribute('selected', true);
 
-    promptVis.innerText = newPrompt.task;
+    promptVis.innerHTML = newPrompt.endText;
 }
 
 function selectInterface(newInterface, onModeClick) {
