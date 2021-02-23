@@ -9,6 +9,7 @@ field2Input = document.getElementById("field2");
 userTextBox = document.getElementById("user-text");
 
 promptVis = document.getElementById("prompt-vis");
+userText = document.getElementById("user-text");
 
 currentPrompt = null;
 currentInterface = null;
@@ -67,8 +68,8 @@ function selectPrompt(newPrompt) {
     currentPrompt = document.getElementById('prompt-'+newPrompt.name);
     currentPrompt.setAttribute('selected', true);
 
-    promptVis.innerText = newPrompt.task + " " + newPrompt.goalText;
-    userTextBox.innerText = newPrompt.startText;
+    promptVis.innerHTML = newPrompt.endText;
+    userText.value = newPrompt.startText;
 }
 
 function selectInterface(newInterface, onModeClick) {
@@ -149,6 +150,7 @@ window.onload = () => {
     userTextBox = document.getElementById("user-text");
 
     promptVis = document.getElementById("prompt-vis");
+    userText = document.getElementById("user-text");
 
     currentPrompt = prompts;
     currentInterface = interfaces;

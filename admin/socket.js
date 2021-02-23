@@ -12,7 +12,7 @@ function updateText(type, value) {
 }
 
 socket.on('init', (data) => {
-    setPrompts(data.prompts, (prompt) => chooseItem('prompt', prompt));
+    setPrompts(Object.values(data.prompts), (prompt) => chooseItem('prompt', prompt));
     setInterfaces(data.interfaces, (interface) => chooseItem('interface', interface));
     setUserTextUpdater((text) => updateText('input', text));
     // setModes(data.interfaces.modes, (mode) => chooseItem('mode', mode));
