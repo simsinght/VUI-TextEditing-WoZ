@@ -24,8 +24,8 @@ function setField2Value(text) {
 }
 
 function selectPrompt(prompt) {
-    promptTask.innerHTML = prompt.task;
-    promptGoal.innerHTML = prompt.goalText;
+    // promptTask.innerHTML = prompt.task;
+    promptGoal.innerHTML = prompt.endText;
     userTextBox.innerHTML = prompt.startText;
 }
 
@@ -61,4 +61,6 @@ window.onload = () => {
     field1Input = document.getElementById("field1");
     field2Input = document.getElementById("field2");
     userTextBox = document.getElementById("msg-box");
+
+    promptTask.innerHTML = "Change the text to be:"
 }
