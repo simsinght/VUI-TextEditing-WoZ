@@ -4,6 +4,9 @@ modes = document.getElementById("modes");
 transitions = document.getElementById("transitions");
 field1 = document.getElementById("field1-container");
 field2 = document.getElementById("field2-container");
+field1Input = document.getElementById("field1");
+field2Input = document.getElementById("field2");
+userTextBox = document.getElementById("user-text");
 
 promptVis = document.getElementById("prompt-vis");
 
@@ -11,6 +14,10 @@ currentPrompt = null;
 currentInterface = null;
 currentMode = null;
 currentTransition = null;
+
+/*
+    Cards: Interface, Prompt, Mode
+*/
 
 function newCard(type, title, onclick) {
     card = document.createElement('div');
@@ -60,7 +67,8 @@ function selectPrompt(newPrompt) {
     currentPrompt = document.getElementById('prompt-'+newPrompt.name);
     currentPrompt.setAttribute('selected', true);
 
-    promptVis.innerText = newPrompt.task;
+    promptVis.innerText = newPrompt.task + " " + newPrompt.goalText;
+    userTextBox.innerText = newPrompt.startText;
 }
 
 function selectInterface(newInterface, onModeClick) {
@@ -71,7 +79,10 @@ function selectInterface(newInterface, onModeClick) {
     setModes(newInterface.modes, onModeClick);
 }
 
-function selectMode(newMode, onTransitionClick) {
+/*
+    Selection and setting of modes, fields, "transitions"
+*/
+function selectMode(newMode, onTransitionClick, onFieldInput) {
     currentMode.removeAttribute('selected');
     currentMode = document.getElementById('mode-'+newMode.name);
     currentMode.setAttribute('selected', true);
@@ -79,8 +90,10 @@ function selectMode(newMode, onTransitionClick) {
     if(newMode.type === "cmd"){
         setTransitions(newMode.transitions, onTransitionClick)
         field1.removeAttribute('hidden');
+        field1Input.oninput = (e) => { e.preventDefault(); onFieldInput('field1', e.target.value); };
         if (newMode.secondField){
             field2.removeAttribute('hidden');
+            field2Input.oninput = (e) => { e.preventDefault(); onFieldInput('field2', e.target.value); };
         } else {
             field2.setAttribute('hidden', true);
         }
@@ -92,6 +105,29 @@ function selectMode(newMode, onTransitionClick) {
     }
 }
 
+function setUserTextUpdater(func) {
+    userTextBox.oninput = (e) => func(e.target.value);
+}
+
+function setField1Value(text) {
+    console.log(text);
+    if (text == "") {
+        field1Input.value = text;
+    }
+}
+
+function setField2Value(text) {
+    console.log(text);
+    if (text == "") {
+        field2Input.value = text;
+    }
+}
+
+function setUserText(text) {
+    console.log(text);
+    // userTextBox.value = text;
+}
+
 function selectTransition(newTransition) {
     if(currentTransition){
         currentTransition.removeAttribute('selected');
@@ -100,15 +136,17 @@ function selectTransition(newTransition) {
     currentTransition.setAttribute('selected', true);
 }
 
-
 window.onload = () => {
     prompts = document.getElementById("prompts");
     interfaces = document.getElementById("interfaces");
     modes = document.getElementById("modes");
     transitions = document.getElementById("transitions");
+
     field1 = document.getElementById("field1-container");
     field2 = document.getElementById("field2-container");
-
+    field1Input = document.getElementById("field1");
+    field2Input = document.getElementById("field2");
+    userTextBox = document.getElementById("user-text");
 
     promptVis = document.getElementById("prompt-vis");
 

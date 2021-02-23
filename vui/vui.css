@@ -1,0 +1,50 @@
+:root {
+    --charcoal: #808080;
+    --l-gray: #E6E6E6;
+}
+
+body{
+    margin: 0;
+    background-color: var(--l-gray);
+}
+
+#prompt-container {
+    background-color: white;
+    height: 25vh;
+    text-align: center;
+}
+#prompt {
+    margin: 3vh;
+    font-size: 2rem;
+}
+h1 {
+    margin: 3vh;
+    font-size: 3rem;
+}
+#vui-container{
+    background-color: var(--charcoal);
+    height: 30vh;
+    position: absolute;
+    bottom: 0;
+}
+#msg-box{
+    background-color: white;
+    width: 65vw;
+    border-radius: 25pt;
+    padding: 3vw;
+    font-size: 2rem;
+    border: 1pt solid var(--charcoal);
+    margin-right: 5vw;
+}
+#msg-box-container{
+    position: absolute;
+    bottom: 30vh;
+    border: 1pt solid var(--charcoal);
+    display: flex;
+    flex-flow: row-reverse;
+}
+
+.full-width{
+    width: 100%;
+}
+

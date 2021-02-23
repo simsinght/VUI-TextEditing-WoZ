@@ -11,10 +11,12 @@ const data = {
     currentPrompt: null,
     currentInterface: null,
     currentMode: null,
-    currentTransition: null,
 
     user: {
         input: "",
+        field1: "",
+        transition: "",
+        field2: ""
     }
 }
 
@@ -31,7 +33,7 @@ const socket = (app) => {
             if (data.currentPrompt) socket.emit('prompt-selection', data.currentPrompt);
             if (data.currentInterface) socket.emit('interface-selection', data.currentInterface);
             if (data.currentMode) socket.emit('mode-selection', data.currentMode);
-            if (data.currentTransition) socket.emit('transition-selection', data.currentTransition);
+            if (data.user.transition) socket.emit('transition-selection', data.user.transition);
         }
 
         socket.on('shift-prompt', (prompt) => {
@@ -48,13 +50,39 @@ const socket = (app) => {
 
         socket.on('shift-mode', (mode) => {
             data.currentMode = mode;
-            data.currentTransition = null;
+            data.user.transition = null;
+            data.user.field1 = "";
+            data.user.field2 = "";
+
             io.emit('mode-selection', mode);
+            io.emit('set-field1', data.user.field1);
+            io.emit('set-field2', data.user.field2);
+            io.emit('shift-transition', data.user.transition);
         });
 
+
+        /*
+            Stuff inside of the user object
+        */
         socket.on('shift-transition', (transition) => {
-            data.currentTransition = transition;
+            data.user.transition = transition;
             io.emit('transition-selection', transition);
+        });
+
+        socket.on('update-field1', (text) => {
+            data.user.field1 = text;
+            io.emit('set-field1', text);
+        });
+
+        socket.on('update-field2', (text) => {
+            data.user.field2 = text;
+            io.emit('set-field2', text);
+        });
+
+        socket.on('update-input', (text) => {
+            console.log('input', text);
+            data.user.input = text;
+            io.emit('set-input', text);
         });
     });
 };
