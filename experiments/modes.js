@@ -1,7 +1,7 @@
 const actions = require('./actions');
 const {aEditY, aReplaceY, aInsertY, aDeleteY, aUndoY, aChangeY, aCancelG, aResumeG, aAcceptGr, aSendGr} = actions;
 
-const mDictateIntegrated = { 
+const mDictate = { 
     id: 0, 
     name: 'Dictate', 
     type: 'passive', 
@@ -10,39 +10,6 @@ const mDictateIntegrated = {
     topActions: [aReplaceY, aDeleteY, aChangeY, aInsertY],
     altActions: [aUndoY], 
     bottomActions: [aCancelG, aSendGr],      
-    cmdAcceptedField: false };
-
-const mDictateClutched = { 
-    id: 1, 
-    name: 'Dictate', 
-    type: 'passive', 
-    micColor: 'blue', 
-    color: 'blue', 
-    topActions: [aEditY, aUndoY], 
-    altActions: [], 
-    bottomActions: [aCancelG, aSendGr],
-    cmdAcceptedField: false };
-
-const mDictateGD = { 
-    id: 2, 
-    name: 'Dictate', 
-    type: 'passive', 
-    micColor: 'yellow', 
-    color: 'yellow', 
-    topActions: [], 
-    altActions: [], 
-    bottomActions: [], 
-    cmdAcceptedField: true };
-
-const mEditClutched = {
-    id: 8, 
-    name: 'Edit', 
-    type: 'passive', 
-    micColor: 'yellow', 
-    color: 'yellow', 
-    topActions: [aReplaceY, aDeleteY, aChangeY, aInsertY], 
-    altActions: [], 
-    bottomActions: [aCancelG, aSendGr], 
     cmdAcceptedField: false };
 
 const mInsert = {
@@ -93,7 +60,7 @@ const mDelete = {
     secondField: false,
     transitions: [] };
 
-const mUndoIntegrated = {
+const mUndo = {
     id: 6, 
     name: 'Undo', 
     type: 'passive', 
@@ -104,15 +71,5 @@ const mUndoIntegrated = {
     bottomActions: [aCancelG, aSendGr], 
     cmdAcceptedField: false };
 
-const mUndoClutched = {
-    id: 7, 
-    name: 'Undo', 
-    type: 'passive', 
-    micColor: 'blue', 
-    color: 'blue', 
-    topActions: [aUndoY], 
-    altActions: [], 
-    bottomActions: [aResumeG, aSendGr], 
-    cmdAcceptedField: false };
-
-module.exports = {mDictateIntegrated, mDictateClutched, mDictateGD, mEditClutched, mInsert, mChange, mReplace, mDelete, mUndoClutched, mUndoIntegrated};
+const allModes = [mDictate, mInsert, mDelete, mReplace, mChange, mUndo]
+module.exports = {mDictate, mInsert, mDelete, mReplace, mChange, mUndo, allModes};
