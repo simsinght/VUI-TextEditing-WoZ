@@ -6,9 +6,9 @@ dictateView = document.getElementById("dictate-mode-view");
 field1Container = document.getElementById("field1-container");
 field2Container = document.getElementById("field2-container");
 
-transitions = document.getElementById("transitions");
-field1Input = document.getElementById("field1");
-field2Input = document.getElementById("field2");
+transition = document.getElementById("transition");
+field1 = document.getElementById("field1");
+field2 = document.getElementById("field2");
 userTextBox = document.getElementById("msg-box");
 
 function setUserText(text) {
@@ -16,11 +16,11 @@ function setUserText(text) {
 }
 
 function setField1Value(text) {
-    field1Input.value = text;
+    field1.innerText = text;
 }
 
 function setField2Value(text) {
-    field2Input.value = text;
+    field2.innerText = text;
 }
 
 function selectPrompt(prompt) {
@@ -44,6 +44,10 @@ function selectMode(newMode) {
     }
 }
 
+function selectTransition(newTransition){
+    transition.innerText = newTransition.name;
+}
+
 window.onload = () => {
     userTextBox = document.getElementById("msg-box");
 
@@ -57,9 +61,9 @@ window.onload = () => {
 
     cmdView.style.display = "none";
 
-    transitions = document.getElementById("transitions");
-    field1Input = document.getElementById("field1");
-    field2Input = document.getElementById("field2");
+    transition = document.getElementById("transition");
+    field1 = document.getElementById("field1");
+    field2 = document.getElementById("field2");
     userTextBox = document.getElementById("msg-box");
 
     promptTask.innerHTML = "Change the text to be:"

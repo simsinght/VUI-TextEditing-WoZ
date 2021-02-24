@@ -1,6 +1,8 @@
 :root {
     --charcoal: #808080;
     --l-gray: #E6E6E6;
+    --l-green: #95d255;
+    --l-blue: #479bef;
 }
 
 body{
@@ -50,4 +52,28 @@ body{
 .full-width{
     width: 100%;
 }
-
+.mode-param{
+    padding: 10px;
+    font-size: 1.5rem;
+    color: white;
+}
+.mode-field{
+    margin-left: 20vw;
+    padding: 2vw 5vw;
+    width: fit-content;
+    border-radius: 20pt;
+}
+#field1{
+    background-color: var(--l-green);
+}
+#field2{
+    background-color: var(--l-blue);
+}
+#transition{
+    margin-left: 22.5vw;
+    padding: 1vw 2.5vw;
+    width: fit-content;
+    border-radius: 20pt;
+    font-size: 1.5rem;
+    border: 1pt solid var(--l-gray);
+}
