@@ -5,7 +5,7 @@ socket.on('prompt-selection', (prompt) => {
 })
 
 socket.on('interface-selection', (interface) => {
-    selectInterface(interface, (mode) => chooseItem('mode', mode));
+    selectInterface(interface);
 })
 
 socket.on('mode-selection', (mode) => {

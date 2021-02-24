@@ -24,10 +24,28 @@
             <div id="dictate-mode-view" class="row">
                 <img width="100px" src="./images/noun_Microphone_3734124.svg" />
             </div>
-            <div class="col" id="cmd-mode-view">
-                <div class="row mode-param" id="field1-container"><p class="col-3">Field 1</p> <input type="text" class="col-7" id="field1" readonly/></div>
-                <div class="sj-cardholder mode-param" id="transitions"></div>
-                <div class="row mode-param" id="field2-container"><p class="col-3">Field 2</p> <input type="text" class="col-7" id="field2" readonly/></div>
+            <div class="row mh-100" id="dictate-cmds-view">
+                <div class="col" id="cmd-mode-view">
+                    <div class="row">
+                        <div class="col-3">
+                            <button id="curr-mode-button"></button>
+                        </div>
+                        <div class="col">
+                            <div class="row mode-param" id="field1-container"><input type="text" class="col-7" id="field1" readonly/></div>
+                            <div class="sj-cardholder mode-param" id="transitions"></div>
+                            <div class="row mode-param" id="field2-container"><input type="text" class="col-7" id="field2" readonly/></div>
+                        </div>
+                    </div>
+                    <div class="row" id="other-commands"></div>
+                </div>
+                <div class="row d-flex" id="dictate-mode-commands">
+                    
+                </div>
+                <div class="flex-row d-flex justify-content-start" id="dictate-cmds-mic">
+                    <div>
+                        <img width="50px" src="./images/noun_Microphone_3734124.svg" />
+                    </div>
+                </div>
             </div>
         </div>
     </body>

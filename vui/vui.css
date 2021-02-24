@@ -48,3 +48,7 @@ h1 {
     width: 100%;
 }
 
+.btn-sim {
+    max-width: 20% !important;
+    margin: 5px;
+}
