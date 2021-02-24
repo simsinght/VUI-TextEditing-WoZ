@@ -11,8 +11,8 @@ field2Container = document.getElementById("field2-container");
 
 currModeButton = document.getElementById('curr-mode-button');
 transitions = document.getElementById("transitions");
-field1Input = document.getElementById("field1");
-field2Input = document.getElementById("field2");
+field1 = document.getElementById("field1");
+field2 = document.getElementById("field2");
 userTextBox = document.getElementById("msg-box");
 
 currentInterface = null;
@@ -45,6 +45,43 @@ function setModes() {
         button.setAttribute('class', 'btn btn-outline-primary btn-sm btn-sim');
         dictateCommands.appendChild(button);
     }
+function showElem(element){
+    element.removeAttribute('hidden');
+}
+
+function hideElem(element){
+    element.setAttribute('hidden', true);
+}
+
+/*
+    Cards: Transitions, Buttons
+*/
+
+function newCard(type, title, onclick) {
+    card = document.createElement('div');
+    card.setAttribute('class', 'card');
+    id = type + '-' + title;
+    card.setAttribute('id', id);
+
+    body = document.createElement('div');
+    body.setAttribute('class', 'card-body');
+    body.innerText = title;
+
+    card.appendChild(body);
+    card.onclick = onclick;
+    card.style.marginLeft = "10px";
+
+    return card;
+}
+
+function setCards(container, type, items, func) {
+    while (container.firstChild)
+        container.removeChild(container.firstChild);
+
+    items.forEach(item => {
+        card = newCard(type, item.name, () => func(item));
+        container.appendChild(card);
+    })
 }
 
 function setUserText(text) {
@@ -52,11 +89,18 @@ function setUserText(text) {
 }
 
 function setField1Value(text) {
-    field1Input.value = text;
+    field1.innerText = text;
+    if(text != ""){
+        showElem(field1);
+        showElem(transitions);
+    }
 }
 
 function setField2Value(text) {
-    field2Input.value = text;
+    field2.innerText = text;
+    if(text != ""){
+        showElem(field2);
+    }
 }
 
 function selectPrompt(prompt) {
@@ -65,7 +109,11 @@ function selectPrompt(prompt) {
     userTextBox.innerHTML = prompt.startText;
 }
 
-function selectMode(newMode) {
+function selectInterface(newInterface){
+    // TODO
+}
+
+function selectMode(newMode, transitionFunc) {
     if(newMode.type === "cmd"){
         cmdView.style.display = "block";
         currModeButton.innerHTML = newMode.name;
@@ -76,6 +124,11 @@ function selectMode(newMode) {
         } else {
             field2Container.style.display = "none";
         }
+        hideElem(field1);
+        hideElem(transitions);
+        hideElem(field2);
+
+        setCards(transitions, 'transition', newMode.transitions, transitionFunc)
     } else {
         cmdView.style.display = "none";
     }
@@ -83,6 +136,12 @@ function selectMode(newMode) {
     //     cmdView.style.display = "none";
     //     dictateView.style.display = "block";
     // }
+}
+
+function selectTransition(newTransition){
+    setCards(transitions, 'transition', [newTransition], null)
+    card = document.getElementById('transition-'+newTransition.name);
+    card.setAttribute('selected', true);
 }
 
 window.onload = () => {
@@ -103,8 +162,8 @@ window.onload = () => {
 
     currModeButton = document.getElementById('curr-mode-button');
     transitions = document.getElementById("transitions");
-    field1Input = document.getElementById("field1");
-    field2Input = document.getElementById("field2");
+    field1 = document.getElementById("field1");
+    field2 = document.getElementById("field2");
     userTextBox = document.getElementById("msg-box");
 
     promptTask.innerHTML = "Change the text to be:"

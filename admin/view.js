@@ -16,6 +16,8 @@ currentInterface = null;
 currentMode = null;
 currentTransition = null;
 
+const WORD_END_CHARS = ' .;,\n":';
+
 /*
     Cards: Interface, Prompt, Mode
 */
@@ -91,10 +93,18 @@ function selectMode(newMode, onTransitionClick, onFieldInput) {
     if(newMode.type === "cmd"){
         setTransitions(newMode.transitions, onTransitionClick)
         field1.removeAttribute('hidden');
-        field1Input.oninput = (e) => { e.preventDefault(); onFieldInput('field1', e.target.value); };
+        field1Input.oninput = (e) => { 
+            e.preventDefault(); 
+            if(WORD_END_CHARS.includes(e.data))
+                onFieldInput('field1', e.target.value); 
+        };
         if (newMode.secondField){
             field2.removeAttribute('hidden');
-            field2Input.oninput = (e) => { e.preventDefault(); onFieldInput('field2', e.target.value); };
+            field2Input.oninput = (e) => { 
+                e.preventDefault(); 
+                if(WORD_END_CHARS.includes(e.data))
+                    onFieldInput('field2', e.target.value); 
+            };
         } else {
             field2.setAttribute('hidden', true);
         }
@@ -106,8 +116,12 @@ function selectMode(newMode, onTransitionClick, onFieldInput) {
     }
 }
 
-function setUserTextUpdater(func) {
-    userTextBox.oninput = (e) => func(e.target.value);
+function setUserTextUpdater(updateCallback) {
+    userTextBox.oninput = (e) => {
+        if(WORD_END_CHARS.includes(e.data))
+            updateCallback(e.target.value);
+        };
+            
 }
 
 function setField1Value(text) {
