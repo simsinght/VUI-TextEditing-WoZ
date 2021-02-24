@@ -32,7 +32,6 @@ function selectInterface(interface) {
         return;
     }
 
-
     setModes();
 }
 
@@ -45,6 +44,8 @@ function setModes() {
         button.setAttribute('class', 'btn btn-outline-primary btn-sm btn-sim');
         dictateCommands.appendChild(button);
     }
+}
+
 function showElem(element){
     element.removeAttribute('hidden');
 }
@@ -107,10 +108,6 @@ function selectPrompt(prompt) {
     // promptTask.innerHTML = prompt.task;
     promptGoal.innerHTML = prompt.endText;
     userTextBox.innerHTML = prompt.startText;
-}
-
-function selectInterface(newInterface){
-    // TODO
 }
 
 function selectMode(newMode, transitionFunc) {
