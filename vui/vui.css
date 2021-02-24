@@ -52,6 +52,16 @@ body{
 .full-width{
     width: 100%;
 }
+.sj-cardholder {
+    display: flex;
+}
+.card {
+    background-color: inherit;
+    padding: inherit
+}
+.card-body{
+    padding: 0;
+}
 .mode-param{
     padding: 10px;
     font-size: 1.5rem;
@@ -69,11 +79,20 @@ body{
 #field2{
     background-color: var(--l-blue);
 }
-#transition{
+#transitions{
     margin-left: 22.5vw;
+}
+#transitions > .card {
     padding: 1vw 2.5vw;
     width: fit-content;
     border-radius: 20pt;
     font-size: 1.5rem;
     border: 1pt solid var(--l-gray);
+    margin-right: 20px;
+}
+
+.sj-cardholder > .card[selected] {
+    background-color: var(--l-gray);
+    color: var(--charcoal);
+    font-weight: bold;
 }

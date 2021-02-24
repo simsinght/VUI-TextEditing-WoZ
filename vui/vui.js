@@ -6,7 +6,7 @@ dictateView = document.getElementById("dictate-mode-view");
 field1Container = document.getElementById("field1-container");
 field2Container = document.getElementById("field2-container");
 
-transition = document.getElementById("transition");
+transitions = document.getElementById("transitions");
 field1 = document.getElementById("field1");
 field2 = document.getElementById("field2");
 userTextBox = document.getElementById("msg-box");
@@ -19,6 +19,37 @@ function hideElem(element){
     element.setAttribute('hidden', true);
 }
 
+/*
+    Cards: Transitions, Buttons
+*/
+
+function newCard(type, title, onclick) {
+    card = document.createElement('div');
+    card.setAttribute('class', 'card');
+    id = type + '-' + title;
+    card.setAttribute('id', id);
+
+    body = document.createElement('div');
+    body.setAttribute('class', 'card-body');
+    body.innerText = title;
+
+    card.appendChild(body);
+    card.onclick = onclick;
+    card.style.marginLeft = "10px";
+
+    return card;
+}
+
+function setCards(container, type, items, func) {
+    while (container.firstChild)
+        container.removeChild(container.firstChild);
+
+    items.forEach(item => {
+        card = newCard(type, item.name, () => func(item));
+        container.appendChild(card);
+    })
+}
+
 function setUserText(text) {
     userTextBox.innerHTML = text;
 }
@@ -27,6 +58,7 @@ function setField1Value(text) {
     field1.innerText = text;
     if(text != ""){
         showElem(field1);
+        showElem(transitions);
     }
 }
 
@@ -47,7 +79,7 @@ function selectInterface(newInterface){
     // TODO
 }
 
-function selectMode(newMode) {
+function selectMode(newMode, transitionFunc) {
     if(newMode.type === "cmd"){
         cmdView.style.display = "block";
         dictateView.style.display = "none";
@@ -57,8 +89,10 @@ function selectMode(newMode) {
             field2Container.style.display = "none";
         }
         hideElem(field1);
-        hideElem(transition);
+        hideElem(transitions);
         hideElem(field2);
+
+        setCards(transitions, 'transition', newMode.transitions, transitionFunc)
     } else {
         cmdView.style.display = "none";
         dictateView.style.display = "block";
@@ -66,8 +100,9 @@ function selectMode(newMode) {
 }
 
 function selectTransition(newTransition){
-    transition.innerText = newTransition.name;
-    showElem(transition);
+    setCards(transitions, 'transition', [newTransition], null)
+    card = document.getElementById('transition-'+newTransition.name);
+    card.setAttribute('selected', true);
 }
 
 window.onload = () => {
@@ -83,7 +118,7 @@ window.onload = () => {
 
     cmdView.style.display = "none";
 
-    transition = document.getElementById("transition");
+    transitions = document.getElementById("transitions");
     field1 = document.getElementById("field1");
     field2 = document.getElementById("field2");
     userTextBox = document.getElementById("msg-box");

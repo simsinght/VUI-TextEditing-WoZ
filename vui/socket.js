@@ -1,5 +1,10 @@
 const socket = io({query: {pageType: 'vui'}});
 
+// Fire event to change which card is selected
+function chooseItem(type, choice) {
+    socket.emit('shift-'+type, choice);
+}
+
 socket.on('prompt-selection', (prompt) => {
     selectPrompt(prompt)
 })
@@ -9,7 +14,7 @@ socket.on('interface-selection', (interface) => {
 })
 
 socket.on('mode-selection', (mode) => {
-    selectMode(mode)
+    selectMode(mode, (transition) => chooseItem('transition', transition))
 })
 
 socket.on('transition-selection', (transition) => {
