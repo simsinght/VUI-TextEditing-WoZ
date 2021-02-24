@@ -30,11 +30,12 @@ const socket = (app) => {
 
         if (pageType == 'admin') {
             socket.emit('init', data)
-            if (data.currentPrompt) socket.emit('prompt-selection', data.currentPrompt);
-            if (data.currentInterface) socket.emit('interface-selection', data.currentInterface);
-            if (data.currentMode) socket.emit('mode-selection', data.currentMode);
-            if (data.user.transition) socket.emit('transition-selection', data.user.transition);
         }
+
+        if (data.currentPrompt) socket.emit('prompt-selection', data.currentPrompt);
+        if (data.currentInterface) socket.emit('interface-selection', data.currentInterface);
+        if (data.currentMode) socket.emit('mode-selection', data.currentMode);
+        if (data.user.transition) socket.emit('transition-selection', data.user.transition);
 
         socket.on('shift-prompt', (prompt) => {
             data.currentPrompt = prompt;
