@@ -3,6 +3,7 @@ const socketio = require('socket.io');
 const prompts = require('./experiments/tasks');
 const interfaces = require('./experiments/interfaces');
 const modes = require('./experiments/modes');
+const { logger } = require('./logging')
 
 const data = {
     prompts: [],
@@ -72,8 +73,8 @@ const socket = (app) => {
 
     io.on('connection', async socket => {
         const {pageType} = socket.handshake.query;
-        console.log(pageType);
-        console.log('connected');
+        logger.info(pageType);
+        logger.info('connected');
 
         if (pageType == 'admin') {
             data.prompts = randomizeTasks();
@@ -88,7 +89,7 @@ const socket = (app) => {
         socket.on('shift-prompt', (prompt) => {
             data.currentPrompt = prompt;
             io.emit('prompt-selection', prompt);
-            console.log('Begin Prompt ', prompt.name)
+            logger.info('Begin Prompt ' + prompt.name)
         });
 
         socket.on('shift-interface', (interface) => {
@@ -96,7 +97,7 @@ const socket = (app) => {
             data.currentMode = data.currentInterface.modes[0];
             io.emit('interface-selection', interface);
             io.emit('mode-selection', data.currentMode);
-            console.log('Begin Interface ', interface.name)
+            logger.info('Begin Interface ' + interface.name)
         });
 
         socket.on('shift-mode', (mode) => {
@@ -109,7 +110,7 @@ const socket = (app) => {
             io.emit('set-field1', data.user.field1);
             io.emit('set-field2', data.user.field2);
             io.emit('shift-transition', data.user.transition);
-            console.log('Cmd ', mode.name)
+            logger.info('Cmd ' + mode.name)
         });
 
 
@@ -132,7 +133,7 @@ const socket = (app) => {
         });
 
         socket.on('update-input', (text) => {
-            console.log('input', text);
+            logger.info('input', text);
             data.user.input = text;
             io.emit('set-input', text);
         });
