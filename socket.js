@@ -3,7 +3,6 @@ const socketio = require('socket.io');
 const prompts = require('./experiments/tasks');
 const interfaces = require('./experiments/interfaces');
 const modes = require('./experiments/modes');
-const tasks = require('./experiments/tasks');
 
 const data = {
     prompts: [],
@@ -65,7 +64,6 @@ function randomizeTasks(){
         }
     })
 
-    console.log("randomized tasks ", tasks1, tasks2, tasks3)
     return randomizeList(tasks1).concat(randomizeList(tasks2), randomizeList(tasks3));
 }
 
@@ -90,6 +88,7 @@ const socket = (app) => {
         socket.on('shift-prompt', (prompt) => {
             data.currentPrompt = prompt;
             io.emit('prompt-selection', prompt);
+            console.log('Begin Prompt ', prompt.name)
         });
 
         socket.on('shift-interface', (interface) => {
@@ -97,6 +96,7 @@ const socket = (app) => {
             data.currentMode = data.currentInterface.modes[0];
             io.emit('interface-selection', interface);
             io.emit('mode-selection', data.currentMode);
+            console.log('Begin Interface ', interface.name)
         });
 
         socket.on('shift-mode', (mode) => {
@@ -109,6 +109,7 @@ const socket = (app) => {
             io.emit('set-field1', data.user.field1);
             io.emit('set-field2', data.user.field2);
             io.emit('shift-transition', data.user.transition);
+            console.log('Cmd ', mode.name)
         });
 
 
