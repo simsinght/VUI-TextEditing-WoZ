@@ -75,7 +75,9 @@ function selectPrompt(newPrompt) {
 }
 
 function selectInterface(newInterface, onModeClick) {
-    currentInterface.removeAttribute('selected');
+    if(currentInterface){
+        currentInterface.removeAttribute('selected');
+    }
     currentInterface = document.getElementById('interface-'+newInterface.name);
     currentInterface.setAttribute('selected', true);
 
