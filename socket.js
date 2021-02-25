@@ -3,9 +3,10 @@ const socketio = require('socket.io');
 const prompts = require('./experiments/tasks');
 const interfaces = require('./experiments/interfaces');
 const modes = require('./experiments/modes');
+const tasks = require('./experiments/tasks');
 
 const data = {
-    prompts,
+    prompts: [],
     interfaces,
     modes,
     currentPrompt: null,
@@ -20,6 +21,54 @@ const data = {
     }
 }
 
+const difficultyBreakdown = {   // number of tasks to select for each difficulty
+    1: 2,
+    2: 2, 
+    3: 1
+}
+
+function chooseOneRandom(list){
+    return Math.floor(Math.random() * list.length);
+}
+
+function getTasksByDifficulty(){
+    _tasks = Object.values(prompts);
+    tasksBydDifficulty = {}
+    for(difficulty in difficultyBreakdown){
+        tasksBydDifficulty[difficulty] = _tasks.filter(t => t.difficulty === parseInt(difficulty))
+    }
+    return tasksBydDifficulty;
+}
+
+function randomizeList(list){
+    newList = [];
+
+    list.forEach(item => {
+        index = Math.floor(Math.random() * newList.length);
+        newList.splice(index, 0, item);
+    })
+  
+    return newList;
+}
+
+function randomizeTasks(){
+    tasks1 = []; tasks2 = []; tasks3 = [];
+    tasksByDifficulty = getTasksByDifficulty();
+
+    [tasks1, tasks2, tasks3].forEach(interface => {     // For each interface
+        for(let difficulty in difficultyBreakdown){     // For each difficulty level
+            for(let i = difficultyBreakdown[difficulty]; i >0; i--){    // choose i tasks
+                index = chooseOneRandom(tasksByDifficulty[difficulty]);
+                interface.push(tasksByDifficulty[difficulty][index]);
+                tasksByDifficulty[difficulty].splice(index,1);
+            }
+        }
+    })
+
+    console.log("randomized tasks ", tasks1, tasks2, tasks3)
+    return randomizeList(tasks1).concat(randomizeList(tasks2), randomizeList(tasks3));
+}
+
 const socket = (app) => {
     const io = socketio(app);
 
@@ -29,6 +78,7 @@ const socket = (app) => {
         console.log('connected');
 
         if (pageType == 'admin') {
+            data.prompts = randomizeTasks();
             socket.emit('init', data)
         }
 

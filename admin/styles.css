@@ -1,3 +1,12 @@
+:root {
+    --charcoal: #808080;
+    --l-gray: #E6E6E6;
+    --l-green: #95d255;
+    --l-blue: #479bef;
+    --l-red: #e8411e;
+    --aqua: #36a88a;
+}
+
 
 .sj-cardholder {
     display: flex;
@@ -8,7 +17,7 @@
 }
 
 .sj-cardholder > .card[selected] {
-    background-color: red;
+    background-color: var(--aqua);
 }
 
 .prompt-vis-container > .card {
