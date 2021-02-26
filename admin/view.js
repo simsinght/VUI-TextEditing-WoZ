@@ -75,7 +75,9 @@ function selectPrompt(newPrompt) {
 }
 
 function selectInterface(newInterface, onModeClick) {
-    currentInterface.removeAttribute('selected');
+    if(currentInterface){
+        currentInterface.removeAttribute('selected');
+    }
     currentInterface = document.getElementById('interface-'+newInterface.name);
     currentInterface.setAttribute('selected', true);
 
@@ -98,6 +100,7 @@ function selectMode(newMode, onTransitionClick, onFieldInput) {
             if(WORD_END_CHARS.includes(e.data))
                 onFieldInput('field1', e.target.value); 
         };
+        field1Input.onblur = (e) => {e.preventDefault(); onFieldInput('field1', e.target.value);}
         if (newMode.secondField){
             field2.removeAttribute('hidden');
             field2Input.oninput = (e) => { 
@@ -105,6 +108,7 @@ function selectMode(newMode, onTransitionClick, onFieldInput) {
                 if(WORD_END_CHARS.includes(e.data))
                     onFieldInput('field2', e.target.value); 
             };
+            field2Input.onblur = (e) => {e.preventDefault(); onFieldInput('field2', e.target.value);}
         } else {
             field2.setAttribute('hidden', true);
         }
@@ -121,7 +125,7 @@ function setUserTextUpdater(updateCallback) {
         if(WORD_END_CHARS.includes(e.data))
             updateCallback(e.target.value);
         };
-            
+        userTextBox.onblur = (e) => {e.preventDefault(); updateCallback(e.target.value);}        
 }
 
 function setField1Value(text) {
