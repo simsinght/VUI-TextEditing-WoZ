@@ -110,6 +110,9 @@ const socket = (app) => {
             io.emit('set-field1', data.user.field1);
             io.emit('set-field2', data.user.field2);
             io.emit('shift-transition', data.user.transition);
+            
+
+            // logger.info('User text: ' + data.user.input);
             logger.info('Cmd ' + mode.name)
         });
 
@@ -133,7 +136,7 @@ const socket = (app) => {
         });
 
         socket.on('update-input', (text) => {
-            logger.info('input', text);
+            logger.info('input: ' + text);
             data.user.input = text;
             io.emit('set-input', text);
         });
