@@ -36,6 +36,8 @@ const socket = (app) => {
         if (data.currentInterface) socket.emit('interface-selection', data.currentInterface);
         if (data.currentMode) socket.emit('mode-selection', data.currentMode);
         if (data.user.transition) socket.emit('transition-selection', data.user.transition);
+        if (data.user.field1) socket.emit('set-field1', data.user.field1);
+        if (data.user.field2) socket.emit('set-field2', data.user.field2);
 
         socket.on('shift-prompt', (prompt) => {
             data.currentPrompt = prompt;
@@ -45,6 +47,9 @@ const socket = (app) => {
         socket.on('shift-interface', (interface) => {
             data.currentInterface = interface;
             data.currentMode = data.currentInterface.modes[0];
+            data.user.transition = "";
+            data.user.field1 = "";
+            data.user.field2 = "";
             io.emit('interface-selection', interface);
             io.emit('mode-selection', data.currentMode);
         });

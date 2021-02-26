@@ -3,6 +3,7 @@
     --l-gray: #E6E6E6;
     --l-green: #95d255;
     --l-blue: #479bef;
+    --orange: #f5c71c;
 }
 
 body{
@@ -20,8 +21,9 @@ body{
     font-size: 3rem;
 }
 #vui-container{
-    background-color: var(--charcoal);
-    height: 30vh;
+    /* background-color: var(--charcoal); */
+    background-color: #2c2c2c;
+    height: 35vh;
     position: absolute;
     bottom: 0;
 }
@@ -36,7 +38,7 @@ body{
 }
 #msg-box-container{
     position: absolute;
-    bottom: 30vh;
+    bottom: 35vh;
     border: 1pt solid var(--charcoal);
     display: flex;
     flex-flow: row-reverse;
@@ -63,15 +65,22 @@ body{
     padding: 0;
 }
 .mode-param{
-    padding: 10px;
     font-size: 1.5rem;
     color: white;
 }
+.vui-row{
+    margin-top: 10px;
+}
 .mode-field{
-    margin-left: 20vw;
-    padding: 2vw 5vw;
+    /* margin-left: 20vw; */
+    padding: 1.5vw 3vw;
     width: fit-content;
     border-radius: 20pt;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.s-flex{
+    display: flex;
 }
 #field1{
     background-color: var(--l-green);
@@ -80,7 +89,7 @@ body{
     background-color: var(--l-blue);
 }
 #transitions{
-    margin-left: 22.5vw;
+    padding-left: 2.5vw;
 }
 #transitions > .card {
     padding: 1vw 2.5vw;
@@ -90,14 +99,41 @@ body{
     border: 1pt solid var(--l-gray);
     margin-right: 20px;
 }
+#curr-cmd-container{
+    align-items: flex-start;
+}
+#dictate-cmds-view{
+    align-content: space-around;
+    height: 100%;
+}
 
 .btn-sim {
     max-width: 20% !important;
     margin: 5px;
+    font-size: 2.5rem !important;
 }
 
 .sj-cardholder > .card[selected] {
     background-color: var(--l-gray);
     color: var(--charcoal);
     font-weight: bold;
+}
+
+.mic-background-50 {
+    background-color: var(--orange);
+    border-radius: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 70px;
+    height: 70px;
+}
+
+.mic-background-100 {
+    background-color: var(--orange);
+    border-radius: 100px;
+    display: flex;
+    justify-content: center;
+    width: 90px;
+    height: 90px;
 }

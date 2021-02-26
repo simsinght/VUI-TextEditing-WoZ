@@ -20,29 +20,35 @@
                 <img width="50px" src="./images/noun_Send Button_1054386.svg"/>
             </div> -->
         </div>
-        <div id="vui-container" class="full-width d-flex align-items-center justify-content-center">
+        <div id="vui-container" class="full-width s-flex align-items-center justify-content-center">
             <div id="dictate-mode-view" class="row">
-                <img width="100px" src="./images/noun_Microphone_3734124.svg" />
+                <div class="mic-background-100">
+                    <img width="100px" src="./images/noun_Microphone_3734124.svg" />
+                </div>
             </div>
-            <div class="row mh-100" id="dictate-cmds-view">
+            <div class="row mh-100 s-flex" id="dictate-cmds-view">
                 <div class="col" id="cmd-mode-view">
-                    <div class="row">
-                        <div class="col-3">
-                            <button id="curr-mode-button"></button>
+                    <div class="row vui-row">
+                        <div class="col-3 s-flex justify-content-center" id="curr-cmd-container">
+                            <button class="btn btn-outline-warning btn-lg" id="curr-mode-button"></button>
                         </div>
-                        <div class="col">
-                            <div class="mode-param full-width" id="field1-container"><p class="mode-field" class="col-7" id="field1"> </p></div>
-                            <div class="sj-cardholder mode-param" id="transitions"></div>
-                            <div class="mode-param full-width" id="field2-container"><p class="mode-field"" id="field2" > </p></div>
-                        </div>
+                        <div class="mode-param col-9" id="field1-container"><p class="mode-field" id="field1"> </p></div>
+                    </div>
+                    <div class="row vui-row">
+                        <div class="col-3"><p> </p></div>
+                        <div class="sj-cardholder mode-param col-9" id="transitions"></div>
+                    </div>
+                    <div class="row vui-row">
+                        <div class="col-3"><p> </p></div>
+                        <div class="mode-param col-9" id="field2-container"><p class="mode-field"" id="field2" > </p></div>
                     </div>
                     <div class="row" id="other-commands"></div>
                 </div>
-                <div class="row d-flex" id="dictate-mode-commands">
+                <div class="row s-flex" id="dictate-mode-commands">
                     
                 </div>
-                <div class="flex-row d-flex justify-content-start" id="dictate-cmds-mic">
-                    <div>
+                <div class="flex-row s-flex justify-content-start" id="dictate-cmds-mic">
+                    <div class="mic-background-50">
                         <img width="50px" src="./images/noun_Microphone_3734124.svg" />
                     </div>
                 </div>

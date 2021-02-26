@@ -19,16 +19,17 @@ currentInterface = null;
 currentModes = [];
 
 function selectInterface(interface) {
+    console.log("set interface called")
     currentInterface = interface;
     modes = interface.modes;
-    console.log(currentInterface.modes, currentInterface.modes.length);
-    if (currentInterface.modes.length != 1) {
+    if (currentInterface.visFeedback) {
         console.log("not dictate only");
         dictateView.style.display = "none";
         dictateCmdsView.style.display = "flex";
     } else {
         dictateView.style.display = "flex";
         dictateCmdsView.style.display = "none";
+        console.log("changed displays?")
         return;
     }
 
@@ -36,12 +37,13 @@ function selectInterface(interface) {
 }
 
 function setModes() {
+    console.log('setModes called');
     while (dictateCommands.firstChild)
         dictateCommands.removeChild(dictateCommands.firstChild);
     for (i=0;i<modes.length;i++){
         button = document.createElement('button');
         button.innerHTML = modes[i].name;
-        button.setAttribute('class', 'btn btn-outline-primary btn-sm btn-sim');
+        button.setAttribute('class', 'btn btn-outline-warning btn-lg btn-sim');
         dictateCommands.appendChild(button);
     }
 }
