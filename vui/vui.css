@@ -102,15 +102,44 @@ body{
 #curr-cmd-container{
     align-items: flex-start;
 }
+
 #dictate-cmds-view{
+    margin-left: 5vw;
+    margin-right: 5vw;
     align-content: space-around;
     height: 100%;
 }
 
+#curr-mode-button {
+    font-size: 1.5rem;
+}
+
 .btn-sim {
-    max-width: 20% !important;
+    /* max-width: 20vw !important; */
+    width: fit-content;
     margin: 5px;
     font-size: 2.5rem !important;
+    border-radius: 20px;
+}
+.btn:hover {
+    color: white;
+    border-color: white;
+}
+
+.btn-bottom {
+    padding-left: 20px;
+    padding-right: 20px;
+    margin: 5px;
+    margin-left: 10%;
+    font-size: 2.5rem !important;
+}
+.button-outline-orange{
+    border-color: var(--orange);
+    color: var(--orange)
+}
+.button-outline-gray{
+    border-color: var(--l-gray);
+    color: var(--l-gray)
 }
 
 .sj-cardholder > .card[selected] {
@@ -137,3 +166,12 @@ body{
     width: 90px;
     height: 90px;
 }
+
+#dictate-mode-commands{
+    justify-content: space-between;
+}
+#dictate-cmds-mic{
+    align-items: center;
+    justify-content: space-between;
+}
+

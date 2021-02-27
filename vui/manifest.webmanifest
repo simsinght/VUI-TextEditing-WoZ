@@ -1,0 +1,13 @@
+{
+    "background_color": "purple",
+    "description": "Shows different interfaces.",
+    "display": "fullscreen",
+    "name": "VUI Study",
+    "short_name": "VUI Test",
+    "start_url": "/index.html",
+    "icons": [{
+        "src": "/images/User-Interface-Voice-Recognition-Scan-icon.png",
+        "type": "image/png",
+        "sizes": "256x256"
+    }]
+  }

@@ -15,12 +15,16 @@ field1 = document.getElementById("field1");
 field2 = document.getElementById("field2");
 userTextBox = document.getElementById("msg-box");
 
+acceptButton = document.getElementById('accept-cmd-button');
+cancelButton = document.getElementById('cancel-cmd-button');
+
 currentInterface = null;
 currentModes = [];
 
-function selectInterface(interface) {
+function selectInterface(interface, onModeSelect) {
     console.log("set interface called")
     currentInterface = interface;
+    interface.modes.shift();
     modes = interface.modes;
     if (currentInterface.visFeedback) {
         console.log("not dictate only");
@@ -33,19 +37,22 @@ function selectInterface(interface) {
         return;
     }
 
-    setModes();
+    setModes(onModeSelect);
 }
 
-function setModes() {
+function setModes(onModeSelect) {
     console.log('setModes called');
     while (dictateCommands.firstChild)
         dictateCommands.removeChild(dictateCommands.firstChild);
-    for (i=0;i<modes.length;i++){
+    modes.forEach(mode => {
         button = document.createElement('button');
-        button.innerHTML = modes[i].name;
-        button.setAttribute('class', 'btn btn-outline-warning btn-lg btn-sim');
+        button.innerHTML = mode.name;
+        if (onModeSelect) 
+            button.onclick = () => onModeSelect(mode);
+        button.setAttribute('class', 'btn button-outline-orange btn-lg btn-sim');
+        button.setAttribute('id', 'btn-mode-'+mode.name)
         dictateCommands.appendChild(button);
-    }
+    });
 }
 
 function showElem(element){
@@ -113,7 +120,26 @@ function selectPrompt(prompt) {
 }
 
 function selectMode(newMode, transitionFunc) {
+    if (currentInterface && currentInterface.touch) {
+        _i = 0;
+        if (newMode.bottomActions.length == 2) {
+            cancelButton.style.display = "inline-block";
+            cancelButton.innerHTML = newMode.bottomActions[_i].name;
+            _i += 1;
+        } else {
+            cancelButton.style.display = "none";
+        }
+        acceptButton.style.display = "inline-block";
+        acceptButton.innerHTML = newMode.bottomActions[_i].name;
+    } else {
+        cancelButton.style.display = "none";
+        acceptButton.style.display = "none";
+    }
+
     if(newMode.type === "cmd"){
+        modes.forEach(mode => {document.getElementById('btn-mode-'+mode.name).style.display = "none"})
+        newMode.altActions.forEach(mode => {document.getElementById('btn-mode-'+mode.name).style.display = "inline-block"})
+
         cmdView.style.display = "block";
         currModeButton.innerHTML = newMode.name;
         
@@ -123,12 +149,15 @@ function selectMode(newMode, transitionFunc) {
         } else {
             field2Container.style.display = "none";
         }
-        hideElem(field1);
-        hideElem(transitions);
+        // hideElem(field1);
+        // hideElem(transitions);
         hideElem(field2);
+
+        
 
         setCards(transitions, 'transition', newMode.transitions, transitionFunc)
     } else {
+        modes.forEach(mode => {document.getElementById('btn-mode-'+mode.name).style.display = "inline-block"})
         cmdView.style.display = "none";
     }
     // } else {
@@ -164,6 +193,9 @@ window.onload = () => {
     field1 = document.getElementById("field1");
     field2 = document.getElementById("field2");
     userTextBox = document.getElementById("msg-box");
+
+    acceptButton = document.getElementById('accept-cmd-button');
+    cancelButton = document.getElementById('cancel-cmd-button');
 
     promptTask.innerHTML = "Change the text to be:"
 }

@@ -1,5 +1,6 @@
 <html>
     <head>
+        <link rel="manifest" href="manifest.webmanifest">
         <script src="./vui.js"></script>
 
         <script src="/socket.io/socket.io.js"></script>
@@ -20,8 +21,8 @@
                 <img width="50px" src="./images/noun_Send Button_1054386.svg"/>
             </div> -->
         </div>
-        <div id="vui-container" class="full-width s-flex align-items-center justify-content-center">
-            <div id="dictate-mode-view" class="row">
+        <div id="vui-container" class="full-width s-flex align-items-center justify-content-start">
+            <div id="dictate-mode-view" class="row w-100 justify-content-center">
                 <div class="mic-background-100">
                     <img width="100px" src="./images/noun_Microphone_3734124.svg" />
                 </div>
@@ -47,10 +48,12 @@
                 <div class="row s-flex" id="dictate-mode-commands">
                     
                 </div>
-                <div class="flex-row s-flex justify-content-start" id="dictate-cmds-mic">
+                <div class="flex-row s-flex" id="dictate-cmds-mic">
                     <div class="mic-background-50">
                         <img width="50px" src="./images/noun_Microphone_3734124.svg" />
                     </div>
+                    <button class="btn button-outline-gray btn-sm btn-bottom btn-sim" id="cancel-cmd-button">Cancel</button>
+                    <button class="btn btn-success btn-sm btn-bottom btn-sim" id="accept-cmd-button">Accept</button>
                 </div>
             </div>
         </div>

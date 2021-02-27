@@ -9,7 +9,7 @@ const mDictate = {
     color: 'yellow', 
     topActions: [aReplaceY, aDeleteY, aChangeY, aInsertY],
     altActions: [aUndoY], 
-    bottomActions: [aCancelG, aSendGr],      
+    bottomActions: [aSendGr],      
     cmdAcceptedField: false };
 
 const mInsert = {
