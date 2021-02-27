@@ -22,7 +22,7 @@ const mInsert = {
     altActions: [aDeleteY, aReplaceY, aChangeY], 
     bottomActions: [aCancelG, aAcceptGr], 
     secondField: true,
-    transitions: [{name: "at"}, {name: "before"}, {name: "after"}] };
+    transitions: [{name: "before"}, {name: "after"}] };
 
 const mReplace = {
     id: 4, 

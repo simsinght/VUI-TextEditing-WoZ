@@ -18,6 +18,7 @@ currentMode = null;
 currentTransition = null;
 
 const WORD_END_CHARS = ' .;,\n":';
+shortcuts = {}
 
 /*
     Cards: Interface, Prompt, Mode
@@ -60,6 +61,12 @@ function setInterfaces(newInterfaces, func) {
 
 function setModes(newModes, func) {
     setCards(modes, 'mode', newModes, func);
+
+    shortcuts = {};
+
+    for(let i = 0; i <= newModes.length; i++){
+        shortcuts[i+1] = () => {func(newModes[i])};
+    }
 }
 
 function setTransitions(newTransitions, func) {
@@ -89,9 +96,19 @@ function selectInterface(newInterface, onModeClick) {
     Selection and setting of modes, fields, "transitions"
 */
 function selectMode(newMode, onTransitionClick, onFieldInput) {
-    currentMode.removeAttribute('selected');
+    console.log(newMode);
+    if(!modes){
+        return;
+    }
+    
+    if(currentMode){
+        currentMode.removeAttribute('selected');
+    }
     currentMode = document.getElementById('mode-'+newMode.name);
     currentMode.setAttribute('selected', true);
+
+    delete shortcuts[9];
+    delete shortcuts[0];
 
     if(newMode.type === "cmd"){
         setTransitions(newMode.transitions, onTransitionClick)
@@ -101,7 +118,8 @@ function selectMode(newMode, onTransitionClick, onFieldInput) {
             if(WORD_END_CHARS.includes(e.data))
                 onFieldInput('field1', e.target.value); 
         };
-        field1Input.onblur = (e) => {e.preventDefault(); onFieldInput('field1', e.target.value);}
+        defField1OnBlur = (e) => {e.preventDefault(); onFieldInput('field1', e.target.value);}
+        defField2OnBlur = (e) => {e.preventDefault(); onFieldInput('field2', e.target.value);}
         if (newMode.secondField){
             field2.removeAttribute('hidden');
             field2Input.oninput = (e) => { 
@@ -109,9 +127,59 @@ function selectMode(newMode, onTransitionClick, onFieldInput) {
                 if(WORD_END_CHARS.includes(e.data))
                     onFieldInput('field2', e.target.value); 
             };
-            field2Input.onblur = (e) => {e.preventDefault(); onFieldInput('field2', e.target.value);}
         } else {
             field2.setAttribute('hidden', true);
+        }
+
+        console.log("type of mode:",newMode.name);
+        switch(newMode.name) {
+            case "Insert": 
+                field1Input.focus();
+                shortcuts[9] = () => onTransitionClick(newMode.transitions[0]);
+                shortcuts[0] = () => onTransitionClick(newMode.transitions[1]);
+                field1Input.onblur = (e) => {
+                    defField1OnBlur(e);
+                };
+                field2Input.onblur = (e) => {
+                    defField2OnBlur(e);
+                    idx = userText.value.indexOf(field2Input.value);
+                    if (idx != -1) {
+                        before = userText.value.slice(0,idx).trim();
+                        after = userText.value.slice(idx+field2Input.value.length).trim();;
+                        if (document.getElementById('transition-before').attributes.selected) {
+                            userText.value = before + ' ' + field1Input.value.trim() + ' ' + field2Input.value + ' ' + after;
+                        } else {
+                            userText.value = before + ' ' + field2Input.value.trim() + ' ' + field1Input.value + ' ' + after;
+                            userText.value = userText.value.trim();
+                        }
+                    }
+
+                };
+                break;
+            case "Delete":
+                field1Input.focus();
+                field1Input.onblur = (e) => {
+                    defField1OnBlur(e);
+                    userText.value = userText.value.replace(field1Input.value,'');
+                }
+                break;
+            case "Replace": 
+            case "Change":
+                field1Input.focus();
+                field1Input.onblur = (e) => {
+                    defField1OnBlur(e);
+                    onTransitionClick(newMode.transitions[0]);
+                    transitions.firstChild.setAttribute('selected', 'true');
+                }
+                field2Input.onblur = (e) => {
+                    defField2OnBlur(e);
+                    console.log(userText);
+                    userText.value = userText.value.replace(field1Input.value,field2Input.value);
+                    console.log(userText);
+                }
+                break;
+            default:
+                break;
         }
     } else {
         setTransitions([], null);
@@ -126,7 +194,7 @@ function setUserTextUpdater(updateCallback, shiftToDictate) {
         if(WORD_END_CHARS.includes(e.data))
             updateCallback(e.target.value);
         };
-        userTextBox.onblur = (e) => {e.preventDefault(); updateCallback(e.target.value); shiftToDictate();}
+        userTextBox.onblur = (e) => {e.preventDefault(); updateCallback(e.target.value); }
 }
 
 function setField1Value(text) {
@@ -181,4 +249,11 @@ window.onload = () => {
     currentInterface = interfaces;
     currentMode = modes;
     currentTransition = transitions;
+
+    document.addEventListener('keypress', (e) => {
+        if (e.key in shortcuts){
+            e.preventDefault();
+            shortcuts[e.key]();
+        }
+      });
 }

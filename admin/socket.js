@@ -12,8 +12,8 @@ function updateText(type, value) {
 }
 
 socket.on('init', (data) => {
-    setPrompts(data.prompts, (prompt) => chooseItem('prompt', prompt));
     setInterfaces(data.interfaces, (interface) => chooseItem('interface', interface));
+    setPrompts(data.prompts, (prompt) => chooseItem('prompt', prompt));
     setUserTextUpdater((text) => updateText('input', text), () => chooseItem('dictate',{name: 'dictate'}));
     // setModes(data.interfaces.modes, (mode) => chooseItem('mode', mode));
     // setTransitions(data.interfaces.modes.transition, (transition) => chooseItem('transition', transition));

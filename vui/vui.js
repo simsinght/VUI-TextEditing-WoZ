@@ -116,7 +116,7 @@ function setField2Value(text) {
 function selectPrompt(prompt) {
     // promptTask.innerHTML = prompt.task;
     promptGoal.innerHTML = prompt.endText;
-    userTextBox.innerHTML = prompt.startText;
+    userTextBox.innerHTML = prompt.startText;  // com
 }
 
 function selectMode(newMode, transitionFunc, onCancel) {

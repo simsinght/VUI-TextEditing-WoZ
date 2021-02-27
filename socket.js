@@ -79,11 +79,12 @@ const socket = (app) => {
 
         if (pageType == 'admin') {
             data.prompts = randomizeTasks();
-            socket.emit('init', data)
+            logger.info('init ' +  data.currentInterface + data.currentMode + data.currentPrompt);
+            socket.emit('init', data);
         }
 
-        if (data.currentPrompt) socket.emit('prompt-selection', data.currentPrompt);
         if (data.currentInterface) socket.emit('interface-selection', data.currentInterface);
+        if (data.currentPrompt) socket.emit('prompt-selection', data.currentPrompt);
         if (data.currentMode) socket.emit('mode-selection', data.currentMode);
         if (data.user.transition) socket.emit('transition-selection', data.user.transition);
         if (data.user.field1) socket.emit('set-field1', data.user.field1);
@@ -92,6 +93,8 @@ const socket = (app) => {
         socket.on('shift-prompt', (prompt) => {
             data.currentPrompt = prompt;
             io.emit('prompt-selection', prompt);
+            data.currentMode = mDictate;
+            io.emit('mode-selection', mDictate);
             logger.info('Begin Prompt ' + prompt.name)
         });
 
@@ -130,18 +133,18 @@ const socket = (app) => {
         });
 
         socket.on('shift-dictate', () => {
-            data.currentMode = data.currentInterface.modes[0];
+            data.currentMode = mDictate;
             data.user.transition = null;
             data.user.field1 = "";
             data.user.field2 = "";
 
+            logger.info('Cmd ' + data.currentMode.name)
             io.emit('mode-selection', data.currentMode);
             io.emit('set-field1', data.user.field1);
             io.emit('set-field2', data.user.field2);
             io.emit('shift-transition', data.user.transition);
 
             // logger.info('User text: ' + data.user.input);
-            logger.info('Cmd ' + data.currentMode.name)
         });
 
 
