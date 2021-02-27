@@ -80,7 +80,13 @@ const socket = (app) => {
 
         if (pageType == 'admin') {
             data.prompts = randomizeTasks();
-            logger.info('init ' +  data.currentInterface + data.currentMode + data.currentPrompt);
+            data.currentInterface =  null;
+            data.currentPrompt = null;
+            data.currentMode =  null;
+            data.transition = null;
+            data.field1 = null;
+            data.field2 = null;
+            logger.info('init');
             socket.emit('init', data);
         }
 
