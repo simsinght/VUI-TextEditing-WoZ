@@ -48,6 +48,10 @@ socket.on('set-input', (text) => {
     setUserText(text);
 })
 
+socket.on('set-input-undo', (text) => {
+    setUserTextUndo(text);
+})
+
 socket.on('touch', (btn) =>{
     logEvent('User touched ' + btn.name);
 });

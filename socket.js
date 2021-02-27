@@ -15,6 +15,7 @@ const data = {
     currentMode: null,
 
     user: {
+        inputHistory: [],
         input: "",
         field1: "",
         transition: "",
@@ -92,6 +93,7 @@ const socket = (app) => {
 
         socket.on('shift-prompt', (prompt) => {
             data.currentPrompt = prompt;
+            data.user.inputHistory = [prompt.startText];
             io.emit('prompt-selection', prompt);
             data.currentMode = mDictate;
             io.emit('mode-selection', mDictate);
@@ -116,6 +118,12 @@ const socket = (app) => {
             data.user.field2 = "";
 
             if (mode.name == mUndo.name) {
+                if (data.user.inputHistory.length > 1) {
+                    data.user.inputHistory.pop()
+                    data.user.input = data.user.inputHistory[data.user.inputHistory.length - 1];
+                    io.emit('set-input', data.user.input);
+                    io.emit('set-input-undo', data.user.input);
+                }
                 setTimeout(() => {
                     data.currentMode = mDictate;
                     io.emit('mode-selection', mDictate);
@@ -167,6 +175,7 @@ const socket = (app) => {
         });
 
         socket.on('update-input', (text) => {
+            data.user.inputHistory.push(text);
             logger.info('input: ' + text);
             data.user.input = text;
             io.emit('set-input', text);

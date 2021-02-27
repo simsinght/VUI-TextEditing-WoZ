@@ -216,6 +216,11 @@ function setUserText(text) {
     // userTextBox.value = text;
 }
 
+function setUserTextUndo(text) {
+    console.log(text);
+    userTextBox.value = text;
+}
+
 function selectTransition(newTransition) {
     if(currentTransition){
         currentTransition.removeAttribute('selected');

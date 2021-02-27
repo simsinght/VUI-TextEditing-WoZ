@@ -156,6 +156,9 @@ body{
     align-items: center;
     width: 70px;
     height: 70px;
+    animation-name: example;
+    animation-duration: 4s;
+    animation-iteration-count: 500;
 }
 
 .mic-background-100 {
@@ -165,7 +168,29 @@ body{
     justify-content: center;
     width: 90px;
     height: 90px;
+    animation-name: example;
+    animation-duration: 4s;
+    animation-iteration-count: 500;
 }
+
+@keyframes example {
+    /* 0%   {background-color: #f5c71c;}
+    25%  {background-color: #cea40b;}
+    50%  {background-color: #caa621;}
+    100% {background-color: #f5c71c;} */
+        0% {
+          -webkit-transform: scale(1, 1);
+          opacity: 1;
+        }
+        50% {
+          -webkit-transform: scale(1.1, 1.1);
+          opacity: 0.5;
+        }
+        100% {
+          -webkit-transform: scale(1, 1);
+          opacity: 1;
+        }
+  }
 
 #dictate-mode-commands{
     justify-content: space-between;
