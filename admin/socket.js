@@ -14,7 +14,7 @@ function updateText(type, value) {
 socket.on('init', (data) => {
     setPrompts(data.prompts, (prompt) => chooseItem('prompt', prompt));
     setInterfaces(data.interfaces, (interface) => chooseItem('interface', interface));
-    setUserTextUpdater((text) => updateText('input', text));
+    setUserTextUpdater((text) => updateText('input', text), () => chooseItem('dictate',{name: 'dictate'}));
     // setModes(data.interfaces.modes, (mode) => chooseItem('mode', mode));
     // setTransitions(data.interfaces.modes.transition, (transition) => chooseItem('transition', transition));
 })
@@ -47,3 +47,7 @@ socket.on('set-field2', (text) => {
 socket.on('set-input', (text) => {
     setUserText(text);
 })
+
+socket.on('touch', (btn) =>{
+    logEvent('User touched ' + btn.name);
+});

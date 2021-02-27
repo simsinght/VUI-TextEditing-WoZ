@@ -3,6 +3,7 @@ const socket = io({query: {pageType: 'vui'}});
 // Fire event to change which card is selected
 function chooseItem(type, choice) {
     socket.emit('shift-'+type, choice);
+    socket.emit('touch', choice);
 }
 
 socket.on('prompt-selection', (prompt) => {
@@ -14,7 +15,11 @@ socket.on('interface-selection', (interface) => {
 })
 
 socket.on('mode-selection', (mode) => {
-    selectMode(mode, (transition) => chooseItem('transition', transition))
+    selectMode(
+        mode, 
+        (transition) => chooseItem('transition', transition),
+        () => chooseItem('dictate', {name: 'cancel'})
+    )
 })
 
 socket.on('transition-selection', (transition) => {

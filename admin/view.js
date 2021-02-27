@@ -10,6 +10,7 @@ userTextBox = document.getElementById("user-text");
 
 promptVis = document.getElementById("prompt-vis");
 userText = document.getElementById("user-text");
+eventLog = document.getElementById("event-log");
 
 currentPrompt = null;
 currentInterface = null;
@@ -120,12 +121,12 @@ function selectMode(newMode, onTransitionClick, onFieldInput) {
     }
 }
 
-function setUserTextUpdater(updateCallback) {
+function setUserTextUpdater(updateCallback, shiftToDictate) {
     userTextBox.oninput = (e) => {
         if(WORD_END_CHARS.includes(e.data))
             updateCallback(e.target.value);
         };
-        userTextBox.onblur = (e) => {e.preventDefault(); updateCallback(e.target.value);}        
+        userTextBox.onblur = (e) => {e.preventDefault(); updateCallback(e.target.value); shiftToDictate();}
 }
 
 function setField1Value(text) {
@@ -155,6 +156,11 @@ function selectTransition(newTransition) {
     currentTransition.setAttribute('selected', true);
 }
 
+function logEvent(msg) {
+    eventLog.innerText += msg + '\n';
+    eventLog.scrollTop = eventLog.scrollHeight;
+}
+
 window.onload = () => {
     prompts = document.getElementById("prompts");
     interfaces = document.getElementById("interfaces");
@@ -169,6 +175,7 @@ window.onload = () => {
 
     promptVis = document.getElementById("prompt-vis");
     userText = document.getElementById("user-text");
+    eventLog = document.getElementById("event-log");
 
     currentPrompt = prompts;
     currentInterface = interfaces;

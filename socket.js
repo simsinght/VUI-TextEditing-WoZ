@@ -2,6 +2,7 @@ const socketio = require('socket.io');
 
 const prompts = require('./experiments/tasks');
 const interfaces = require('./experiments/interfaces');
+const {mUndo,mDictate} = require('./experiments/modes')
 const modes = require('./experiments/modes');
 const { logger } = require('./logging')
 
@@ -111,6 +112,13 @@ const socket = (app) => {
             data.user.field1 = "";
             data.user.field2 = "";
 
+            if (mode.name == mUndo.name) {
+                setTimeout(() => {
+                    data.currentMode = mDictate;
+                    io.emit('mode-selection', mDictate);
+                }, 500)
+            }
+
             io.emit('mode-selection', mode);
             io.emit('set-field1', data.user.field1);
             io.emit('set-field2', data.user.field2);
@@ -119,6 +127,21 @@ const socket = (app) => {
 
             // logger.info('User text: ' + data.user.input);
             logger.info('Cmd ' + mode.name)
+        });
+
+        socket.on('shift-dictate', () => {
+            data.currentMode = data.currentInterface.modes[0];
+            data.user.transition = null;
+            data.user.field1 = "";
+            data.user.field2 = "";
+
+            io.emit('mode-selection', data.currentMode);
+            io.emit('set-field1', data.user.field1);
+            io.emit('set-field2', data.user.field2);
+            io.emit('shift-transition', data.user.transition);
+
+            // logger.info('User text: ' + data.user.input);
+            logger.info('Cmd ' + data.currentMode.name)
         });
 
 
@@ -144,6 +167,11 @@ const socket = (app) => {
             logger.info('input: ' + text);
             data.user.input = text;
             io.emit('set-input', text);
+        });
+
+        socket.on('touch', (btn) => {
+            logger.info('touch: ' + btn.name);
+            io.emit('touch', btn);
         });
     });
 };

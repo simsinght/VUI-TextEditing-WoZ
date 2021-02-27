@@ -119,12 +119,13 @@ function selectPrompt(prompt) {
     userTextBox.innerHTML = prompt.startText;
 }
 
-function selectMode(newMode, transitionFunc) {
+function selectMode(newMode, transitionFunc, onCancel) {
     if (currentInterface && currentInterface.touch) {
         _i = 0;
         if (newMode.bottomActions.length == 2) {
             cancelButton.style.display = "inline-block";
             cancelButton.innerHTML = newMode.bottomActions[_i].name;
+            cancelButton.onclick = onCancel;
             _i += 1;
         } else {
             cancelButton.style.display = "none";
